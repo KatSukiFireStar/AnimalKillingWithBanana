@@ -7,8 +7,19 @@ public class DestroyAnimals : MonoBehaviour
 
 	private void Update()
 	{
+		Transform life = transform.parent.GetComponent<GestionnaireJeu>().lifeCounter.transform;
+
+		if (life.GetComponent<LifeCounter>().life == 0)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		
 		if (transform.position.z <= posZToDestroy)
 		{
+			if (life.GetComponent<LifeCounter>().life > 0)
+				life.GetComponent<LifeCounter>().life--;
+			life.GetChild(life.GetComponent<LifeCounter>().life).gameObject.SetActive(false);
 			Destroy(gameObject);
 		}
 	}
@@ -19,7 +30,7 @@ public class DestroyAnimals : MonoBehaviour
 		{
 			Destroy(gameObject);
 			Destroy(collision.gameObject);
-			transform.parent.GetComponent<Spawner>().scoreCounter.score++;
+			transform.parent.GetComponent<GestionnaireJeu>().scoreCounter.score++;
 		}
 	}
 }

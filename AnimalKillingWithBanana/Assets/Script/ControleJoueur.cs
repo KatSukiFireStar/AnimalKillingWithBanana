@@ -10,9 +10,17 @@ public class ControleJoueur : MonoBehaviour
 
 	[SerializeField] 
 	private GameObject bullet;
+	[SerializeField] 
+	private Transform bulletHolder;
+	
+	[HideInInspector]
+	public bool gameOver = false;
 	
 	private void Update()
 	{
+		if (gameOver)
+			return;
+		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			Shoot();
@@ -35,6 +43,6 @@ public class ControleJoueur : MonoBehaviour
 
 	private void Shoot()
 	{
-		Instantiate(bullet, transform.position + Vector3.up , bullet.transform.rotation);
+		Instantiate(bullet, transform.position + Vector3.up , bullet.transform.rotation, bulletHolder);
 	}
 }
